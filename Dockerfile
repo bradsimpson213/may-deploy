@@ -5,7 +5,7 @@ COPY /react-app /react-app
 
 WORKDIR /react-app
 
-RUN npm install && CI=false && npm build 
+RUN npm install && CI=false && npm run build
 
 FROM python:3.9.18-alpine3.18
 
@@ -31,7 +31,7 @@ COPY --from=build /react-app /var/www/react-app/
 RUN flask db upgrade
 RUN flask seed all
 
-CMD ginicorn app:app
+CMD gunicorn app:app
 
 
 
